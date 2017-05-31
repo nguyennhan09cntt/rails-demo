@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
 	before_create :encrypt_password
 	after_create :clear_password
-	validates :user_name, :presence => {message: "is required" }, :length => { in: 4..20, message: "from 4 to 20 charters"}
+	validates :user_name, :presence => {message: "is required" }, :length => { in: 4..20, message: "from 4 to 20 charters"}, uniqueness: true
 	validates :password, :presence => true, length: { in: 6..20, message: "from 6 to 20 charters"}, :on => :create
 
 
