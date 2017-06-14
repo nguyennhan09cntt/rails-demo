@@ -9,6 +9,9 @@ Rails.application.routes.draw do
 
    # user list
    resources :user  
+   
+   resources :module  
+
    #profile
    get '/profile' , to: 'profile#index'
    patch '/profile/update' , to: 'profile#update'
