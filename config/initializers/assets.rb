@@ -13,3 +13,5 @@ Rails.application.config.assets.version = '1.0'
 # %w(user login).each do |controller|
 #   Rails.application.config.assets.precompile += ["#{controller}.js"]
 # end
+
+Rails.application.config.assets.precompile += [/.*\.js/,/.*\.css/]

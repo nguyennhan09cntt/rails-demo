@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'privilege/index'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
    root 'index#index'
 
@@ -10,7 +12,11 @@ Rails.application.routes.draw do
    # user list
    resources :user  
    
-   resources :module  
+   resources :module
+
+   resources :resource  
+
+   resources :privilege
 
    #profile
    get '/profile' , to: 'profile#index'

@@ -11,10 +11,6 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
-//= require turbolinks
-
-
 
 //= require "bootstrap/js/bootstrap.min.js"
 //= require "js.cookie.min.js"
@@ -32,4 +28,4 @@
 //= require "scripts/quick-nav.min.js"
 
 //= require "component.js"
-//= require "user.js"
+
