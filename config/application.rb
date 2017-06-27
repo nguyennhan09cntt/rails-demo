@@ -11,6 +11,23 @@ module AppMysql
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-    config.assets.paths << "#{Rails.root}/lib/assets"    
+    config.assets.paths << "#{Rails.root}/lib/assets"
   end
+end
+
+module ApplicationConstant
+
+  # Database user_component_cms
+  COMPONENT_CMS = 1
+  
+  DISPLAY = 1
+
+end
+
+module CMSConstant
+
+  PREFIX_MENU_NAME = 'name'
+
+  PREFIX_MENU_URL = 'url'
+
 end

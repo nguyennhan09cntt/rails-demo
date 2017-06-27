@@ -19,13 +19,13 @@
 <div class="portlet box grey-cascade">
   <div class="portlet-title">
     <div class="caption">
-      <i class="fa fa-globe"></i>6 dòng(s)
+      <i class="fa fa-globe"></i> 6 dong
     </div>
   </div>
   <div class="portlet-body">
     <div class="table-toolbar">
       <div class="btn-group">
-        <button id="btn_add_new" class="btn green">
+        <button id="btn_add_new" class="btn green" data-id="<%= @moduleId %>">
           Thêm mới <i class="fa fa-plus"></i>
         </button>
       </div>
@@ -33,11 +33,8 @@
         <form method="get" action="">
           <fieldset class="filter">
             <label>Module</label>
-            <select name="c" id="c" class="input-inline form-control">
-              <option value="0">++</option>
-              <option value="1">CMS</option>
-              <option value="2">Operation</option>
-            </select>                                
+            <%= select_tag "m", options_from_collection_for_select(@moduleData, "id", "name", :selected => @moduleId),
+            class: "input-inline form-control",  :prompt => 'Select' %>                          
             <input value="Tìm kiếm" class="btn blue" type="submit">
           </fieldset>
         </form>
@@ -50,11 +47,10 @@
             ID
           </th>
           <th>
-            Tên resource
+            Controller
           </th>
-          <th>
-            Thứ tự hiển thị
-          </th>
+          
+          <th> Tinh trang</th>
           <th>
             Module
           </th>
@@ -69,14 +65,14 @@
       	<%  @resource.each do |c| %>
         <tr>
           <td><%= c.id %></td>
-          <td><%= c.name %></td>
-          <td><%= c.priority %></td>
+          <td><%= c.controller %></td>
+          <td><%= c.active %></td>
           <td><%= c.fk_user_module %></td>
           <td><%= c.created_at %></td>
           <td>
-            <a href="/resource/?m=<%= c.id %>">Manage Resource</a>
+            <a href="/privilege/?r=<%= c.id %>">Manage privilege</a>
             &nbsp;|&nbsp;
-            <a href="/resource/edit/?m=<%= c.fk_user_component %>">Add Resource</a>
+            <a href="/privilege/new/?r=<%= c.fk_user_module %>">Add privilege</a>
           </td>
         </tr>
         <% end %>
