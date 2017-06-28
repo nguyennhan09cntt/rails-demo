@@ -38,8 +38,7 @@ class ResourceController < ApplicationController
 
   def create
     @module = UserModule.find(params[:resource][:fk_user_module])
-    params_created = params.require(:resource).permit(:controller, :active, :display)
-    #params_created[:fk_user_module] = @module[:id]
+    params_created = params.require(:resource).permit(:name, :controller, :active, :display)    
     @resource = UserResource.new(params_created)    
     @resource.user_module = @module
     if @resource.save

@@ -1,2 +1,91 @@
-<h1>Privilege#index</h1>
-<p>Find me in app/views/privilege/index.html.erb</p>
+<div class="page-bar">
+  <ul class="page-breadcrumb">
+    <li>
+      <a href="/">Home</a>
+      <i class="fa fa-circle"></i>
+    </li>
+    <li>
+      <span>Privilege</span>
+    </li>
+  </ul>
+</div>
+<!-- BEGIN PAGE TITLE-->
+<h1 class="page-title"> 
+	Manage  
+    <small>Privilege</small>
+</h1>
+<!-- END PAGE TITLE-->
+
+<div class="portlet box grey-cascade">
+  <div class="portlet-title">
+    <div class="caption">
+      <i class="fa fa-globe"></i> 6 dong
+    </div>
+  </div>
+  <div class="portlet-body">
+    <div class="table-toolbar">
+      <div class="btn-group">
+        <button id="btn_add_new" class="btn green" data-id="<%= @resourceId %>">
+          Thêm mới <i class="fa fa-plus"></i>
+        </button>
+      </div>
+      <div class="pull-right">
+        <form method="get" action="">
+          <fieldset class="filter">
+            <label>Resource</label>
+            <%= select_tag "r", options_from_collection_for_select(@resourceData, "id", "name", :selected => @resourceId),
+            class: "input-inline form-control",  :prompt => 'Select' %>  
+
+            <input value="Tìm kiếm" class="btn blue" type="submit">
+          </fieldset>
+        </form>
+      </div>
+    </div>
+    <table class="table table-striped table-bordered table-hover" id="table_module">
+      <thead>
+        <tr>
+          <th>
+            ID
+          </th>
+          <th>
+            Tên Privilege
+          </th>
+          <th>
+            Action
+          </th>
+          <th>Tinh trang</th>
+          <th>
+            Resource
+          </th>
+          <th>
+            Ngày tạo
+          </th>
+          <th>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+      	<%  @privilege.each do |c| %>
+        <tr>
+          <td><%= c.id %></td>
+          <td><%= c.name %></td>
+          <td><%= c.action %></td>
+          <td><%= c.active %></td>
+          <td><%= c.user_resource.name %></td>
+          <td><%= c.created_at %></td>
+          <td>            
+             <%= link_to "Edit", {:action => 'edit', :id => c.id}, :class => 'btn btn-sm yellow btn-outline edit'%>     
+          </td>
+        </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="99">
+            <%= will_paginate @privilege %>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

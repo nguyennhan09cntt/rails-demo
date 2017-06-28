@@ -1,29 +1,33 @@
 module ApplicationHelper
   def menu
-    permissionData = UserPermission.where('fk_user= :fk_user', {:fk_user => @current_user.id})
-    menuData = Hash.new
-    if permissionData
-      permissionData each do |data|
-        if data.fk_user_component == ApplicationConstant::COMPONENT_CMS
-          if data.resource_display == ApplicationConstant::DISPLAY
-            moduleName = data.module_name
-            unless menuData[moduleName]
-              menuData[moduleName] = Hash.new
+    permissionData = UserPermission.where('fk_user= :fk_user', {:fk_user => @current_user.id}, :joins => [:user_privilege, :user_resource, :user_module])
+   
+    @menuData = Hash.new
+    unless  permissionData.nil?
+      permissionData.each do |data|
+        if data.user_privilege.user_resource.user_module.fk_user_component == ApplicationConstant::COMPONENT_CMS
+          if data.user_privilege.user_resource.display == ApplicationConstant::DISPLAY
+            moduleName = data.user_privilege.user_resource.user_module.name
+            unless @menuData[moduleName]
+              @menuData[moduleName] = Hash.new
             end
 
-            resourceName = data.resource_name;
-            if !isset(menuData[moduleName][resourceName])
-              menuData[moduleName][resourceName] = Hash.new
+            resourceName = data.user_privilege.user_resource.name;
+            if @menuData[moduleName][resourceName] == nil
+              @menuData[moduleName][resourceName] = Hash.new
             end
-
-            menuData[moduleName][resourceName]['#{data.resource_controller}/#{data.privilege_action}'] = Hash[
-              CMSConstant::PREFIX_MENU_NAME => data.privilege_name,
-              CMSConstant::PREFIX_MENU_URL => '#{data.resource_controller}/#{data.privilege_action}'
+            controller = data.user_privilege.user_resource.controller
+            action = data.user_privilege.action
+            link = '%s/%s' % [controller, action]
+            @menuData[moduleName][resourceName][link] = Hash[
+              CMSConstant::PREFIX_MENU_NAME => data.user_privilege.name,
+              CMSConstant::PREFIX_MENU_URL => link
             ]
           end
         end
       end
     end
-    #return $this->view->render('menu.phtml');
+    puts @menuData
+    render :partial => 'layouts/menu'
   end
 end

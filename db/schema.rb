@@ -35,18 +35,38 @@ ActiveRecord::Schema.define(version: 20170522070129) do
     t.datetime "created_at", comment: "Component"
   end
 
-  create_table "user_module", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci" do |t|
+  create_table "user_module", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci" do |t|
     t.string   "name"
-    t.integer  "fk_user_component"
+    t.integer  "fk_user_component",           null: false,                    unsigned: true
     t.integer  "priority",          limit: 1
-    t.datetime "created_at",                  comment: "module"
+    t.datetime "created_at",                               comment: "module"
   end
 
-  create_table "user_resource", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci" do |t|
-    t.string  "controller",                            collation: "utf8_general_ci"
-    t.integer "active",         limit: 1
-    t.integer "display",        limit: 1
-    t.integer "fk_user_module",           null: false,                               comment: "Resource"
+  create_table "user_permission", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "fk_user",           null: false, unsigned: true
+    t.integer  "fk_user_privilege", null: false, unsigned: true
+    t.datetime "created_at"
+  end
+
+  create_table "user_privilege", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "fk_user_resource",             null: false, unsigned: true
+    t.string   "name",             limit: 127, null: false
+    t.string   "action",           limit: 127
+    t.integer  "active",           limit: 1
+    t.integer  "priority",         limit: 1
+    t.integer  "display",          limit: 1
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_resource", unsigned: true, force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_hungarian_ci" do |t|
+    t.string   "name",           limit: 45
+    t.string   "controller",                             collation: "utf8_general_ci"
+    t.integer  "active",         limit: 1
+    t.integer  "display",        limit: 1
+    t.integer  "fk_user_module",            null: false,                               comment: "Resource"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

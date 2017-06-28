@@ -47,10 +47,12 @@
             ID
           </th>
           <th>
+            Tên resource
+          </th>
+          <th>
             Controller
           </th>
-          
-          <th> Tinh trang</th>
+          <th>Tinh trang</th>
           <th>
             Module
           </th>
@@ -65,14 +67,15 @@
       	<%  @resource.each do |c| %>
         <tr>
           <td><%= c.id %></td>
+          <td><%= c.name %></td>
           <td><%= c.controller %></td>
           <td><%= c.active %></td>
-          <td><%= c.fk_user_module %></td>
+          <td><%= c.user_module.name %></td>
           <td><%= c.created_at %></td>
           <td>
-            <a href="/privilege/?r=<%= c.id %>">Manage privilege</a>
+            <a href="/privilege/?r=<%= c.id %>&m=<%= c.fk_user_module%>">Manage Privilege</a>
             &nbsp;|&nbsp;
-            <a href="/privilege/new/?r=<%= c.fk_user_module %>">Add privilege</a>
+            <a href="/privilege/new/?r=<%= c.id %>&m=<%= c.fk_user_module%>">Add Privilege</a>
           </td>
         </tr>
         <% end %>
