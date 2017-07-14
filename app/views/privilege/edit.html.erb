@@ -1,0 +1,94 @@
+<div class="portlet box blue">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i> Manager privilege </div>
+        <div class="tools">
+          
+        </div>
+    </div>
+    <div class="portlet-body form">        
+        <%= form_for @privilege, :url =>{:action => "update", :id =>@privilege}, :html => {:class => 'form-horizontal'} do |f| %>
+            <% if @privilege.errors.any? %>
+            <div class="alert alert-danger display-hide" style="display: block;">
+                <button class="close" data-close="alert"></button>                 
+                <ul>  
+                   <% @privilege.errors.full_messages.each do |message| %>
+                   <li><%= message %></li>
+                   <% end %>
+                </ul>
+            </div>
+            <% end %>
+            <div class="form-body">
+
+            <div class="form-group">
+                    <%= label_tag(:privilege_name, "privilege name", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Name" data-container="body"></i>
+                        <%= text_field :privilege, :name, placeholder: 'privilege name', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off" %>
+                       </div>
+                    </div>
+                </div>  
+
+                <div class="form-group">
+                    <%= label_tag(:privilege_action, "Action", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Action" data-container="body"></i>
+                        <%= text_field :privilege, :action, placeholder: 'Controller', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off" %>
+                       </div>
+                    </div>
+                </div>  
+
+                <div class="form-group">
+                    <%= label_tag(:privilege_active, "Active", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Active" data-container="body"></i>
+                        <%= text_field :privilege, :active, placeholder: '1', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off" %>
+                       </div>
+                    </div> 
+                </div>  
+
+                <div class="form-group">
+                    <%= label_tag(:privilege_display, "Display", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Display" data-container="body"></i>
+                        <%= text_field :privilege, :display, placeholder: '1', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off" %>
+                       </div>
+                    </div> 
+                </div> 
+                <div class="form-group">
+                    <%= label_tag(:privilege_priority, "Priority", class: "col-md-4 control-label") %>
+                    <div class="col-md-8">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Priority" data-container="body"></i>
+                        <%= text_field :privilege, :priority, placeholder: '100', class: "form-control form-control-solid placeholder-no-fix", autocomplete:"off" %>
+                       </div>
+                    </div> 
+                </div>  
+
+                <div class="form-group">
+                    <%= label_tag(:privilege_fk_user_resource, "Resource", class: "col-md-4 control-label") %>
+                    <div class="col-md-4">
+                      <div class="input-icon right">
+                        <i class="fa fa-info-circle tooltips" data-original-title="Resource" data-container="body"></i>
+                         <%= collection_select(:privilege, :fk_user_resource, @resourceData, :id, :name, {prompt: true}, {:class=> "form-control form-control-solid"}) %>                                             
+                       </div>
+                    </div> 
+                </div> 
+                  
+             
+                <div class="form-actions">
+                 <div class="row">
+                    <div class="col-md-offset-4 col-md-8">
+                       <!--  <button type="button" class="btn default">Cancel</button> -->
+                        <%= submit_tag("Submit", class: "btn green uppercase") %>
+                    </div>
+                  </div>
+                </div>
+            </div>  
+        <% end %>
+    </div>
+</div>
